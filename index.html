@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polarissima Ltd | Quantitative RegTech, IFR K-Factor Optimization & MCP Infrastructure</title>
+  <meta name="description" content="Polarissima Ltd (Limassol, Cyprus) builds quantitative prudential capital engines (EU IFR/IFD K-Factor Optimizer), algorithmic execution analytics, and Model Context Protocol (MCP) infrastructure for regulated investment firms." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #060913;
+      --bg-secondary: #0b1120;
+      --bg-card: rgba(15, 23, 42, 0.78);
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-accent: rgba(56, 189, 248, 0.38);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #38bdf8;
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.10), transparent 35%),
+        radial-gradient(circle at 85% 25%, rgba(59, 130, 246, 0.10), transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.06), transparent 45%);
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    code.pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8em;
+      background: rgba(56, 189, 248, 0.12);
+      color: #7dd3fc;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(56, 189, 248, 0.22);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(6, 9, 19, 0.82);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #060913;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #040711;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.92rem;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 96px 0 72px;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      color: var(--accent-cyan);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px var(--accent-emerald);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 4.5vw, 3.75rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      max-width: 920px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p.lead {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 760px;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+
+    /* Metrics strip */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 22px 24px;
+    }
+
+    .metric-val {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .section-eyebrow {
+      color: var(--accent-cyan);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      max-width: 720px;
+      font-size: 1.02rem;
+      margin-bottom: 44px;
+    }
+
+    /* Solutions Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.14);
+      color: var(--accent-cyan);
+      margin-bottom: 18px;
+      width: fit-content;
+    }
+
+    .card h3 {
+      font-size: 1.28rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+      margin-bottom: 20px;
+    }
+
+    .card ul {
+      list-style: none;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 16px;
+    }
+
+    .card ul li {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      margin-bottom: 9px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .card ul li::before {
+      content: "▹";
+      color: var(--accent-cyan);
+      font-weight: bold;
+    }
+
+    /* Interactive Calculator */
+    .calc-box {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(11, 17, 32, 0.95));
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 36px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .calc-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-group label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .input-group input, .input-group select {
+      background: rgba(6, 9, 19, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+    }
+
+    .calc-results {
+      background: rgba(6, 9, 19, 0.78);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .res-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      font-size: 0.9rem;
+    }
+
+    .res-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .res-highlight {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 10px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .res-highlight .hl-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-emerald);
+      font-weight: 600;
+    }
+
+    .res-highlight .hl-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-top: 2px;
+    }
+
+    /* Preset buttons */
+    .preset-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .preset-btn {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .preset-btn:hover, .preset-btn.active {
+      border-color: var(--accent-cyan);
+      color: var(--text-primary);
+      background: rgba(56, 189, 248, 0.15);
+    }
+
+    /* Footer / Contact */
+    .contact-banner {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.85));
+      border: 1px solid var(--border-accent);
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    @media (max-width: 920px) {
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid { grid-template-columns: 1fr; }
+      .calc-box { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 560px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+      .calc-inputs { grid-template-columns: 1fr; }
+      .contact-banner { padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-inner">
+      <a href="#" class="brand">
+        <span class="brand-mark">P</span>
+        <span>POLARISSIMA</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#solutions">Solutions</a>
+        <a href="#k-optimizer">IFR K-Factor Engine</a>
+        <a href="#mcp">MCP & Agentic AI</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="mailto:artem@polarissima.space?subject=Polarissima%20Architecture%20Brief%20Request" class="btn-primary">
+        artem@polarissima.space
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <div class="container hero">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>LIMASSOL, CYPRUS · EU IFR/IFD REGTECH & QUANTITATIVE SYSTEMS</span>
+      </div>
+      <h1>
+        Prudential Capital Optimization &amp; <span>MCP Infrastructure</span> for Investment Firms
+      </h1>
+      <p class="lead">
+        <strong>Polarissima Ltd</strong> engineers quantitative prudential capital engines (<em>Regulation (EU) 2019/2033 — IFR/IFD</em>), real-time multi-venue dealing analytics, and deterministic <strong>Model Context Protocol (MCP)</strong> gateways for European brokers, custodians, and wealth managers.
+      </p>
+      <div class="hero-actions">
+        <a href="mailto:artem@polarissima.space?subject=Request%20K-Factor%20%26%20MCP%20Demo" class="btn-primary">
+          Request Technical Demo →
+        </a>
+        <a href="#k-optimizer" class="btn-outline">
+          Launch Live K-Factor Simulator
+        </a>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-val mono">EU 2019/2033</div>
+          <div class="metric-label">Full IFR / IFD Pillar I, ICARA &amp; RTS 28 Prudential Coverage</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val mono">12.5×</div>
+          <div class="metric-label">Capital Weight Differential: Non-Seg CMH (0.50%) vs. ASA Level 1 (0.04%)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val mono">MCP Native</div>
+          <div class="metric-label">On-Premise Model Context Protocol Connectors for Live Brokerage Data</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val mono">HE 418809</div>
+          <div class="metric-label">Cyprus-Registered Quantitative &amp; RegTech Engineering Firm</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Pillars -->
+    <section id="solutions">
+      <div class="container">
+        <div class="section-eyebrow">Core Engineering Pillars</div>
+        <h2 class="section-title">Built for CROs, CFOs, Heads of Dealing &amp; Advisory Desks</h2>
+        <p class="section-desc">
+          We bridge the gap between real-time trading book execution and quarterly supervisory reporting—turning regulatory constraints into measurable capital efficiency.
+        </p>
+
+        <div class="cards-grid">
+          <!-- Card 1 -->
+          <div class="card">
+            <div>
+              <span class="card-tag mono">01 / PRUDENTIAL ENGINE</span>
+              <h3>Polarissima K-Optimizer™</h3>
+              <p>
+                Real-time telemetry and optimization of IFR Own Funds Requirements across Risk-to-Client (RtC), Risk-to-Market (RtM), and Risk-to-Firm (RtF).
+              </p>
+            </div>
+            <ul>
+              <li>Binding constraint diagnostics: <code class="pill">D = max(PMCR, FOR, KFR)</code> &amp; actionable headroom</li>
+              <li>Automated Cash-to-QMMF sweep modeling (<code class="pill">K-CMH</code> 0.40%/0.50% → <code class="pill">K-ASA</code> 0.04%)</li>
+              <li><code class="pill">K-NPR</code> vs. <code class="pill">K-TCD</code> hedging efficiency &amp; third-country LP buffer control (<code class="pill">PS-01-2019</code>)</li>
+              <li>Automated <code class="pill">ICARA</code> stress-testing &amp; Pillar III disclosure reconciliation</li>
+            </ul>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card" id="mcp">
+            <div>
+              <span class="card-tag mono">02 / AGENTIC AI &amp; MCP</span>
+              <h3>MCP Financial Gateways</h3>
+              <p>
+                Secure, read-isolated Model Context Protocol (MCP) servers connecting live brokerage back-offices, portfolios, and risk limits to institutional AI workflows.
+              </p>
+            </div>
+            <ul>
+              <li>Zero-hallucination portfolio analytics, margin surveillance &amp; client reporting</li>
+              <li>Automated MiFID II suitability, appropriateness &amp; AML/KYC compliance checks</li>
+              <li>On-premise / VPC deployment with full <code class="pill">DORA</code> &amp; audit-trail governance</li>
+              <li>Seamless integration with Tradernet, MT5, cTrader, FIX &amp; custom OMS APIs</li>
+            </ul>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card">
+            <div>
+              <span class="card-tag mono">03 / QUANT INFRASTRUCTURE</span>
+              <h3>Algorithmic Dealing &amp; Routing</h3>
+              <p>
+                Low-latency execution analytics, multi-prime smart order routing, and systematic book management for Class 2 CIFs and institutional custodians.
+              </p>
+            </div>
+            <ul>
+              <li>Dynamic pre-trade routing across EEA/G20 primes vs. offshore liquidity hubs</li>
+              <li>Real-time <code class="pill">K-DTF</code> &amp; <code class="pill">K-COH</code> notional flow tracking with rolling window forecasts</li>
+              <li>Automated <code class="pill">RTS 28</code> execution quality &amp; slippage asymmetry auditing</li>
+              <li>Custom quantitative strategy &amp; risk-bridge engineering in C++, Python &amp; Rust</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive K-Factor Simulator -->
+    <section id="k-optimizer">
+      <div class="container">
+        <div class="section-eyebrow">Interactive Prudential Diagnostics</div>
+        <h2 class="section-title">EU IFR K-Factor &amp; Binding Constraint Simulator</h2>
+        <p class="section-desc">
+          Select a real anonymized Cyprus CIF profile from public Pillar III disclosures or enter your firm's metrics to evaluate your binding constraint <code class="pill">D = max(PMCR, FOR, KFR)</code> and reducible K-Factor headroom <code class="pill">H</code>.
+        </p>
+
+        <div class="preset-bar">
+          <button class="preset-btn active" onclick="loadPreset('custodian')">Multi-Asset Prime / Custodian (€4B ASA)</button>
+          <button class="preset-btn" onclick="loadPreset('mega_hybrid')">Tier-1 Multi-Asset Broker ($35M KFR)</button>
+          <button class="preset-btn" onclick="loadPreset('bbook')">Pure B-Book CFD Market Maker ($78M K-NPR)</button>
+          <button class="preset-btn" onclick="loadPreset('for_bound')">FOR-Bound Wealth / Stock CIF</button>
+        </div>
+
+        <div class="calc-box">
+          <div>
+            <div class="calc-inputs">
+              <div class="input-group">
+                <label>Regulatory Own Funds / CET1 (M)</label>
+                <input type="number" id="inp_cet1" value="4.48" step="0.1" oninput="recalc()" />
+              </div>
+              <div class="input-group">
+                <label>Permanent Min. Capital PMCR (M)</label>
+                <select id="inp_pmcr" onchange="recalc()">
+                  <option value="0.75" selected>0.75M (Class 2 Dealing / CIF)</option>
+                  <option value="0.15">0.15M (Class 2 Agency / RTO)</option>
+                  <option value="0.075">0.075M (Class 3 Advisory)</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>Fixed Overheads Req. FOR (M)</label>
+                <input type="number" id="inp_for" value="3.44" step="0.1" oninput="recalc()" />
+              </div>
+              <div class="input-group">
+                <label>K-CMH: Client Money Req. (M)</label>
+                <input type="number" id="inp_kcmh" value="1.99" step="0.05" oninput="recalc()" />
+              </div>
+              <div class="input-group">
+                <label>K-ASA: Custody Assets Req. (M)</label>
+                <input type="number" id="inp_kasa" value="1.59" step="0.05" oninput="recalc()" />
+              </div>
+              <div class="input-group">
+                <label>K-NPR + K-TCD + K-DTF + K-COH (M)</label>
+                <input type="number" id="inp_kother" value="0.15" step="0.05" oninput="recalc()" />
+              </div>
+            </div>
+            <p style="margin-top: 18px; font-size: 0.82rem; color: var(--text-muted);">
+              *Under Article 11(1) of Regulation (EU) 2019/2033 (IFR), an investment firm's Own Funds Requirement equals <code class="pill">D = max(PMCR, FOR, KFR)</code>. Lowering K-Factors directly reduces Pillar I required capital up to the reducible headroom <code class="pill">H = max(0, KFR − max(PMCR, FOR))</code>.
+            </p>
+          </div>
+
+          <div class="calc-results">
+            <div>
+              <div class="res-row">
+                <span style="color: var(--text-secondary);">Total K-Factor Requirement (KFR):</span>
+                <span class="mono" id="out_kfr" style="font-weight: 700;">3.73M</span>
+              </div>
+              <div class="res-row">
+                <span style="color: var(--text-secondary);">Floor max(PMCR, FOR):</span>
+                <span class="mono" id="out_floor" style="font-weight: 600;">3.44M</span>
+              </div>
+              <div class="res-row" style="gap: 12px;">
+                <span style="color: var(--text-secondary);">Binding Pillar I Req. (D):</span>
+                <span class="mono" id="out_binding" style="font-weight: 700; color: var(--accent-cyan); text-align: right;">3.73M (K-Factors)</span>
+              </div>
+              <div class="res-row">
+                <span style="color: var(--text-secondary);">Pillar I Capital Ratio (CAR):</span>
+                <span class="mono" id="out_car" style="font-weight: 700;">120.1%</span>
+              </div>
+            </div>
+
+            <div class="res-highlight">
+              <div class="hl-title" id="out_hl_title">Reducible K-Factor Headroom (H)</div>
+              <div class="hl-val mono" id="out_headroom">0.29M</div>
+              <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px;" id="out_advice">
+                KFR is the active binding constraint. Sweeping idle non-segregated CMH (0.50%) into Level-1 ASA/QMMF (0.04%) directly lowers Pillar I &amp; CET1 floors.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-banner">
+          <div style="max-width: 640px;">
+            <div class="section-eyebrow">Direct Engineering Consultation</div>
+            <h2 style="font-size: 1.9rem; font-weight: 700; margin-bottom: 10px;">
+              Schedule a Prudential Capital or MCP Architecture Review
+            </h2>
+            <p style="color: var(--text-secondary); font-size: 0.98rem;">
+              Based in Limassol, Cyprus. We work directly with Executive Directors, Chief Risk Officers, Heads of Dealing, and Family Office CTOs to deploy on-premise K-Factor optimization and MCP data pipelines.
+            </p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="mailto:artem@polarissima.space?subject=Polarissima%20Consultation" class="btn-primary" style="justify-content: center; font-size: 1rem; padding: 14px 28px;">
+              Email: artem@polarissima.space
+            </a>
+            <div class="mono" style="font-size: 0.8rem; color: var(--text-secondary); text-align: center;">
+              Artem Kolmykov · Director, Polarissima Ltd
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong style="color: var(--text-secondary);">POLARISSIMA LTD</strong> · Reg. No. HE 418809 · Limassol, Cyprus
+      </div>
+      <div class="mono">
+        <a href="mailto:artem@polarissima.space" style="color: var(--text-secondary); text-decoration: none;">artem@polarissima.space</a> · polarissima.space
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const presets = {
+      custodian: { cet1: 4.48, pmcr: "0.75", for_val: 3.44, kcmh: 1.99, kasa: 1.59, kother: 0.15 },
+      mega_hybrid: { cet1: 89.97, pmcr: "0.75", for_val: 18.41, kcmh: 6.02, kasa: 3.42, kother: 25.71 },
+      bbook: { cet1: 68.59, pmcr: "0.75", for_val: 23.09, kcmh: 0.74, kasa: 0.00, kother: 66.52 },
+      for_bound: { cet1: 34.65, pmcr: "0.75", for_val: 6.07, kcmh: 0.28, kasa: 1.02, kother: 2.20 }
+    };
+
+    function loadPreset(key) {
+      const p = presets[key];
+      document.getElementById('inp_cet1').value = p.cet1;
+      document.getElementById('inp_pmcr').value = p.pmcr;
+      document.getElementById('inp_for').value = p.for_val;
+      document.getElementById('inp_kcmh').value = p.kcmh;
+      document.getElementById('inp_kasa').value = p.kasa;
+      document.getElementById('inp_kother').value = p.kother;
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      recalc();
+    }
+
+    function recalc() {
+      const cet1 = parseFloat(document.getElementById('inp_cet1').value) || 0;
+      const pmcr = parseFloat(document.getElementById('inp_pmcr').value) || 0;
+      const for_val = parseFloat(document.getElementById('inp_for').value) || 0;
+      const kcmh = parseFloat(document.getElementById('inp_kcmh').value) || 0;
+      const kasa = parseFloat(document.getElementById('inp_kasa').value) || 0;
+      const kother = parseFloat(document.getElementById('inp_kother').value) || 0;
+
+      const kfr = kcmh + kasa + kother;
+      const floor = Math.max(pmcr, for_val);
+      const binding = Math.max(floor, kfr);
+      const headroom = Math.max(0, kfr - floor);
+      const car = binding > 0 ? (cet1 / binding) * 100 : 0;
+
+      let bindLabel = "K-Factors";
+      if (binding === for_val && for_val >= kfr) bindLabel = "FOR (Fixed Overheads)";
+      if (binding === pmcr && pmcr >= for_val && pmcr >= kfr) bindLabel = "PMCR (Initial Capital)";
+
+      document.getElementById('out_kfr').textContent = kfr.toFixed(2) + "M";
+      document.getElementById('out_floor').textContent = floor.toFixed(2) + "M";
+      document.getElementById('out_binding').textContent = binding.toFixed(2) + "M (" + bindLabel + ")";
+      document.getElementById('out_car').textContent = car.toFixed(1) + "%";
+      document.getElementById('out_headroom').textContent = headroom.toFixed(2) + "M";
+
+      const adviceEl = document.getElementById('out_advice');
+      if (headroom > 0.01) {
+        adviceEl.textContent = "KFR is the active binding constraint. Optimizing K-CMH (0.50% → 0.04% ASA), K-TCD netting, and K-NPR hedging directly releases up to " + headroom.toFixed(2) + "M in Pillar I regulatory capital.";
+      } else {
+        adviceEl.textContent = bindLabel + " currently sets the Pillar I floor (H = 0). Focus on ICARA Pillar II stress-testing, intra-quarter KFR surge prevention, and treasury yield optimization.";
+      }
+    }
+  </script>
+</body>
+</html>
